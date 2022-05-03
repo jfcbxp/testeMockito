@@ -1,6 +1,8 @@
 package br.com.dicasdeumdev.api.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +19,7 @@ public class UserDTO {
 	private String name;
 	private String email;
 	
-	@JsonIgnore
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
 }
