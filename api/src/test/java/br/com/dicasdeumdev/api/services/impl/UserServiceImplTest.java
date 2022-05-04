@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import br.com.dicasdeumdev.api.domain.User;
 import br.com.dicasdeumdev.api.domain.dto.UserDTO;
 import br.com.dicasdeumdev.api.repositories.UserRepository;
+import br.com.dicasdeumdev.api.services.exceptions.ObjectNotFoundException;
 
 @SpringBootTest
 class UserServiceImplTest {
@@ -66,23 +66,35 @@ class UserServiceImplTest {
 	}
 
 	@Test
+	void whenFindByIdThenReturnAnObjectNotFoundException() {
+		when(repository.findById(anyInt())).thenThrow(new ObjectNotFoundException("Objeto não encontrado"));
+		Throwable exception = assertThrows(ObjectNotFoundException.class, () -> {
+			service.findById(ID);
+		});
+
+		assertEquals(ObjectNotFoundException.class, exception.getClass());
+		assertEquals("Objeto não encontrado", exception.getMessage());
+
+	}
+
+	@Test
 	void testFindAll() {
-		fail("Not yet implemented");
+
 	}
 
 	@Test
 	void testCreate() {
-		fail("Not yet implemented");
+
 	}
 
 	@Test
 	void testUpdate() {
-		fail("Not yet implemented");
+
 	}
 
 	@Test
 	void testDelete() {
-		fail("Not yet implemented");
+
 	}
 
 	private void startUser() {
