@@ -53,4 +53,11 @@ public class UserServiceImpl implements UserService {
 		return repository.save(mapper.map(obj, User.class));
 	}
 
+	@Override
+	public void delete(Integer id) {
+		findById(id);
+		repository.deleteById(id);
+
+	}
+
 }
