@@ -23,11 +23,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import br.com.dicasdeumdev.api.domain.User;
 import br.com.dicasdeumdev.api.domain.dto.UserDTO;
 import br.com.dicasdeumdev.api.repositories.UserRepository;
-import br.com.dicasdeumdev.api.services.exceptions.DataIntegratyViolationException;
+import br.com.dicasdeumdev.api.services.exceptions.DataIntegrityViolationException;
 import br.com.dicasdeumdev.api.services.exceptions.ObjectNotFoundException;
 
 @SpringBootTest
 class UserServiceImplTest {
+
+	private static final String E_MAIL_JA_CADASTRADO_NO_SISTEMA = "E-mail já cadastrado no sistema";
 
 	private static final int INDEX = 0;
 
@@ -117,10 +119,10 @@ class UserServiceImplTest {
 	void whenCreateThenReturnAnDataIntegrityViolationException() {
 		when(repository.findByEmail(anyString())).thenReturn(optionalUser);
 		optionalUser.get().setId(2);
-		Throwable exception = assertThrows(DataIntegratyViolationException.class, () -> {
+		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
 			service.create(userDTO);
 		});
-		assertEquals("E-mail já cadastrado no sistema", exception.getMessage());
+		assertEquals(E_MAIL_JA_CADASTRADO_NO_SISTEMA, exception.getMessage());
 	}
 
 	@Test
@@ -139,10 +141,10 @@ class UserServiceImplTest {
 	void whenUpdateThenReturnAnDataIntegrityViolationException() {
 		when(repository.findByEmail(anyString())).thenReturn(optionalUser);
 		optionalUser.get().setId(2);
-		Throwable exception = assertThrows(DataIntegratyViolationException.class, () -> {
+		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
 			service.create(userDTO);
 		});
-		assertEquals("E-mail já cadastrado no sistema", exception.getMessage());
+		assertEquals(E_MAIL_JA_CADASTRADO_NO_SISTEMA, exception.getMessage());
 	}
 
 	@Test

@@ -11,11 +11,15 @@ import br.com.dicasdeumdev.api.domain.User;
 import br.com.dicasdeumdev.api.domain.dto.UserDTO;
 import br.com.dicasdeumdev.api.repositories.UserRepository;
 import br.com.dicasdeumdev.api.services.UserService;
-import br.com.dicasdeumdev.api.services.exceptions.DataIntegratyViolationException;
+import br.com.dicasdeumdev.api.services.exceptions.DataIntegrityViolationException;
 import br.com.dicasdeumdev.api.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+	private static final String E_MAIL_JA_CADASTRADO_NO_SISTEMA = "E-mail já cadastrado no sistema";
+
+	private static final String OBJETO_NAO_ENCONTRADO = "Objeto não encontrado";
 
 	@Autowired
 	private UserRepository repository;
@@ -26,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findById(Integer id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+		return obj.orElseThrow(() -> new ObjectNotFoundException(OBJETO_NAO_ENCONTRADO));
 	}
 
 	@Override
@@ -43,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	private void findByEmail(UserDTO obj) {
 		Optional<User> user = repository.findByEmail(obj.getEmail());
 		if (user.isPresent() && !user.get().getId().equals(obj.getId())) {
-			throw new DataIntegratyViolationException("E-mail já cadastrado no sistema");
+			throw new DataIntegrityViolationException(E_MAIL_JA_CADASTRADO_NO_SISTEMA);
 		}
 	}
 

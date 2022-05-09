@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import br.com.dicasdeumdev.api.services.exceptions.DataIntegratyViolationException;
+import br.com.dicasdeumdev.api.services.exceptions.DataIntegrityViolationException;
 import br.com.dicasdeumdev.api.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
@@ -23,8 +23,8 @@ public class ResourceExceptionHandler {
 
 	}
 
-	@ExceptionHandler(DataIntegratyViolationException.class)
-	public ResponseEntity<StandardError> dataIntegratyViolation(DataIntegratyViolationException ex,
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<StandardError> dataIntegrityViolation(DataIntegrityViolationException ex,
 			HttpServletRequest request) {
 		StandardError error = new StandardError(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(),
 				request.getRequestURI());

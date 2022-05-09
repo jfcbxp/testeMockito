@@ -1,10 +1,10 @@
 package br.com.dicasdeumdev.api.services.exceptions;
 
-public class DataIntegratyViolationException extends RuntimeException {
+public class DataIntegrityViolationException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public DataIntegratyViolationException(String message) {
+	public DataIntegrityViolationException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}

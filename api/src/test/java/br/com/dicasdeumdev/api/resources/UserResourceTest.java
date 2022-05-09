@@ -31,8 +31,6 @@ class UserResourceTest {
 
 	private static final int INDEX = 0;
 
-	private static final String OBJETO_NAO_ENCONTRADO = "Objeto não encontrado";
-
 	private static final String PASSWORD = "123";
 
 	private static final String EMAIL = "valdir@email.com";
