@@ -41,7 +41,7 @@ class UserResourceTest {
 
 	private User user;
 
-	private UserDTO userDTO;
+	private UserDTO userDTO = new UserDTO();
 
 	@InjectMocks
 	private UserResource resource;
